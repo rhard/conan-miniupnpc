@@ -9,8 +9,8 @@ class MiniupnpcConan(ConanFile):
     url = "https://github.com/rhard/conan-miniupnpc"
     description = "MiniUPnP client - an UPnP IGD control point"
     settings = "os", "compiler", "build_type", "arch"
-    options = {"shared": [True, False]}
-    default_options = "shared=False"
+    options = {"shared": [True, False],"fPIC": [True, False]}
+    default_options = "shared=False", "fPIC=True"
     generators = "cmake"
 
     def source(self):
@@ -31,6 +31,8 @@ conan_basic_setup()''')
         else:
             cmake.definitions["UPNPC_BUILD_STATIC"] = "ON"
             cmake.definitions["UPNPC_BUILD_SHARED"] = "OFF"
+        if self.settings.os != "Windows":
+            cmake.definitions["CMAKE_POSITION_INDEPENDENT_CODE"] = self.options.fPIC
         cmake.configure(source_folder="miniupnp/miniupnpc")
         cmake.build()
 
