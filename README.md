@@ -6,7 +6,7 @@
 
 MiniUPnP client - an UPnP IGD control point
 
-The packages generated with this **conanfile** can be found on [Bintray](https://bintray.com/rhard/public-conan/miniupnpc%3Arhard).
+The packages generated with this **conanfile** can be found on [Bintray](https://bintray.com/rhard/conan/miniupnpc%3Arhard).
 
 ## For Users: Use this package
 
