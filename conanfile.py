@@ -40,10 +40,15 @@ conan_basic_setup()''')
         self.copy("*.so*", dst="lib", keep_path=False)
         self.copy("*.dylib", dst="lib", keep_path=False)
         self.copy("*.a", dst="lib", keep_path=False)
+        if self.settings.compiler == "Visual Studio":
+            lib_path = os.path.join(self.package_folder, "lib")
+            current_lib = os.path.join(lib_path, "libminiupnpc.lib")
+            if os.path.isfile(current_lib):
+                os.rename(current_lib, os.path.join(lib_path, "miniupnpc.lib"))
 
     def package_info(self):
         if self.settings.compiler == "Visual Studio":
-            self.cpp_info.libs = ["libminiupnpc", "ws2_32", "iphlpapi"]
+            self.cpp_info.libs = ["miniupnpc", "ws2_32", "iphlpapi"]
         else:    
             self.cpp_info.libs = ["miniupnpc"]
         if not self.options.shared:
